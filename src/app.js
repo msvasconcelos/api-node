@@ -42,4 +42,7 @@ const Mentions = require('./models/mentions');
 const indexRoutes = require('./routes/index-routes');
 app.use('/', indexRoutes);
 
+const mentionsRoutes = require('./routes/mentions-routes');
+app.use('/mentions', mentionsRoutes);
+
 module.exports = app;

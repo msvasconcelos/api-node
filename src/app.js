@@ -35,6 +35,8 @@ process.on('SIGINT', () => {
         process.exit(0);
     });
 });
+// Load models
+const Mentions = require('./models/mentions');
 
 // Load routes
 const indexRoutes = require('./routes/index-routes');

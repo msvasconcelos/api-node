@@ -1,27 +1,25 @@
 const mongoose = require('mongoose');
 const Mentions = mongoose.model('Mentions');
 
+const repository = require('../repositories/mentions-repository');
+
 // list
 exports.listMentions = async (req, res) => {
   try {
-    const data = await Mentions.find({}, 'friend mention -_id');
+    const data = await repository.listMentions();
     res.status(200).send(data);
   } catch (e) {
-    res.status(500).send({message: 'Falha ao carregar as menções.'});
+    res.status(500).send({message: 'Falha ao carregar as menções!'});
   }
 };
+
 // create
 exports.createMention = async (req, res) => {
   try {
-    const mention = new Mentions({
+    await repository.createMention({
       friend: req.body.friend,
       mention: req.body.mention
     });
-
-    console.log(mention)
-
-    await mention.save();
-
     res.status(201).send({message: 'Menção cadastrada com sucesso!'});
   } catch (e) {
     res.status(500).send({message: 'Falha ao cadastrar a menção.'});

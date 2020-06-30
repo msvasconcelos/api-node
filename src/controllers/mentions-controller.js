@@ -32,3 +32,21 @@ exports.createMention = async (req, res) => {
     return res.status(500).send({message: 'Falha ao cadastrar a menção.'});
   }
 };
+
+// update
+exports.updateMention = async (req, res) => {
+  const {errors} = validationResult(req);
+
+  if(errors.length > 0) {
+    return res.status(400).send({message: errors})
+  }
+
+  try {
+    await repository.updateMention(req.params.id, req.body);
+    return res.status(200).send({
+      message: 'Menção atualizada com sucesso!'
+    });
+  } catch (e) {
+    return res.status(500).send({message: 'Falha ao atualizar a menção.'});
+  }
+};
